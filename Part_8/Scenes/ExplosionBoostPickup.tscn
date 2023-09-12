@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2r8xuv3xx35o"]
+
+[ext_resource type="Script" path="res://Scripts/ExplosionBoostPickup.gd" id="1_4ckne"]
+[ext_resource type="Texture2D" uid="uid://gwev6y65imcw" path="res://Assets/pickups/power_up.png" id="2_bvufg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lqpgr"]
+radius = 7.07
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7fro"]
+atlas = ExtResource("2_bvufg")
+region = Rect2(0, 0, 19, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl1v6"]
+atlas = ExtResource("2_bvufg")
+region = Rect2(19, 0, 19, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ev8fl"]
+atlas = ExtResource("2_bvufg")
+region = Rect2(38, 0, 19, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mext7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7fro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl1v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev8fl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}]
+
+[node name="ExplosionBoostPickup" type="Area2D"]
+script = ExtResource("1_4ckne")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lqpgr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_mext7")
+animation = &"idle"
+frame_progress = 0.55765
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
