@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://wbpsudjihrlj"]
+
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_q7ly6"]
+[ext_resource type="TileSet" uid="uid://dx4yvmctebweo" path="res://Resources/Level_TileSet.tres" id="2_fgfue"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_q7ly6")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_fgfue")
+format = 2
+layer_0/name = "BACKGROUND_TILE"
+layer_1/name = "BREAKABLE_TILE"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "UNBREAKABLE_TILE"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 2
+layer_2/tile_data = PackedInt32Array()
+
+[node name="SpawnedBombs" type="Node2D" parent="."]
+
+[node name="SpawnedPlayers" type="Node2D" parent="."]
