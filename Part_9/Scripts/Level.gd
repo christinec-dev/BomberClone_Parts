@@ -6,6 +6,7 @@ extends Node2D
 @onready var tilemap = $TileMap
 @onready var spawned_players = $SpawnedPlayers
 @onready var spawned_boosts = $SpawnedBoosts
+@onready var spawned_enemies = $SpawnedEnemies
 
 # Randomizer & Dimension values ( make sure width & height is uneven)
 const initial_width = 37 
@@ -37,13 +38,20 @@ func start_level():
 		# Normal game setup
 		Global.GameMode.NORMAL:
 			generate_map()
+			boost_spawner_chance.randomize() 
 			var player = spawn_players(Global.player_scene, 1)
 			if player:
 				Global.player = player
+			spawn_enemies()
 		# Battle game setup	
 		Global.GameMode.BATTLE:
 			generate_map()
-	
+			boost_spawner_chance.randomize() 
+			var player = spawn_players(Global.player_scene, 1)
+			if player:
+				Global.player = player
+			spawn_enemies()
+			
 # ---------------- Map Generation -------------------------------------
 func generate_map():
 	generate_unbreakables()
@@ -55,6 +63,19 @@ func generate_map():
 func is_cell_empty(layer, coords):
 	var data = tilemap.get_cell_tile_data(layer, coords)
 	return data == null
+
+# Finds and returns remaining empty cells
+func find_empty_cells(map_width, map_height, map_offset, BREAKABLE_TILE_LAYER, UNBREAKABLE_TILE_LAYER):
+	# Array of empty tiles
+	var empty_cells = []
+	# Append empty tiles to array
+	for x in range(1, map_width - 1):
+		for y in range(1, map_height - 1):
+			var current_cell = Vector2i(x, y + map_offset)
+			# Checks if cells are empty only on breakable & unbreakable layers
+			if is_cell_empty(BREAKABLE_TILE_LAYER, current_cell) and is_cell_empty(UNBREAKABLE_TILE_LAYER, current_cell):
+				empty_cells.append(current_cell)
+	return empty_cells	
 	
 func generate_unbreakables():
 	#--------------------------------- UBREAKABLES ------------------------------
@@ -118,15 +139,8 @@ func generate_background():
 
 func generate_boosts():
 	# ------------------------------------- BOOST SPAWNING ------------------
-	# Array of empty tiles
-	var empty_cells = []
-	# Append empty tiles to array
-	for x in range(1, map_width - 1):
-		for y in range(1, map_height - 1):
-			var current_cell = Vector2i(x, y + map_offset)
-			# Checks if cells are empty only on breakable & unbreakable layers
-			if is_cell_empty(BREAKABLE_TILE_LAYER, current_cell) and is_cell_empty(UNBREAKABLE_TILE_LAYER, current_cell):
-				empty_cells.append(current_cell)
+	# Get the array of empty cells
+	var empty_cells = find_empty_cells(map_width, map_height, map_offset, BREAKABLE_TILE_LAYER, UNBREAKABLE_TILE_LAYER)
 	# 1 - 5 boosts			
 	var number_of_boosts = randi_range(1 , 5) 
 	# Randomly spawn 1 - 5 boosts on empty cells
@@ -190,11 +204,40 @@ func spawn_explosion_boost(coords):
 	var boost = Global.explosion_boost_pickup_scene.instantiate()
 	boost.global_position = tilemap.map_to_local(coords)
 	spawned_boosts.add_child(boost)
-	
+
+# Spawns enemies
+func spawn_enemies():
+	# Gets the array of empty cells
+	var empty_cells = find_empty_cells(map_width, map_height, map_offset, BREAKABLE_TILE_LAYER, UNBREAKABLE_TILE_LAYER)
+	# Calculate the number of enemies based on the current level
+	var number_of_enemies = 0 
+	number_of_enemies = 1 + (1 * (Global.current_level - 1))
+	number_of_enemies = min(number_of_enemies, 20) 
+	# Enemy colors for each level
+	var level_colors = {
+		1: ["orange"],
+		2: ["orange", "blue"],
+		"default": ["orange", "blue", "green"]
+	}
+	for i in range(number_of_enemies):
+		if empty_cells.size() > 0:
+			var random_index = rng.randi() % empty_cells.size()
+			var random_cell = empty_cells[random_index]
+			empty_cells.remove_at(random_index)
+			# Randomly choose an enemy color based on the available level colors or default colors
+			var enemy_colors = level_colors.get(Global.current_level, level_colors["default"])
+			Global.enemy_color = enemy_colors[rng.randi() % enemy_colors.size()]
+			# Instantiate and place the enemy
+			var enemy_scene = Global.enemy_scene
+			if enemy_scene:
+				var enemy = enemy_scene.instantiate()
+				enemy.global_position = tilemap.map_to_local(random_cell)
+				spawned_enemies.add_child(enemy)
+		
 # ---------------- Entity Damage -------------------------------------	
 # Remove bricks and check for player/enemy damage
 func remove_entities(bomb_position, explosion_radius, bomb_owner):
-	# Indicates whether the player has already been damaged by the current explosion
+	# Indicates whether the entity has already been damaged by the current explosion
 	player_damaged_for_current_explosion = false
 	#----------- Tile damage -------------------------------
 	var tile_size = 16
@@ -218,10 +261,19 @@ func remove_entities(bomb_position, explosion_radius, bomb_owner):
 				if boost_spawner_chance.randf() < 0.1:
 					spawn_explosion_boost(cell_coords)
 					
+	#----------- Damage Bounds-------------------------------	
+	var explosion_bounds = Rect2(tilemap.map_to_local(explosion_min), tilemap.map_to_local(explosion_max) - tilemap.map_to_local(explosion_min))				
+
 	#----------- Player damage -------------------------------	
-	# Check if the player and explosion bounds
 	var player_bounds = Rect2(Global.player.global_position - Vector2(16, 16), Vector2(25.6, 25.6))
-	var explosion_bounds = Rect2(tilemap.map_to_local(explosion_min), tilemap.map_to_local(explosion_max) - tilemap.map_to_local(explosion_min))
+	# Check if the player and explosion bounds
 	if not player_damaged_for_current_explosion and player_bounds.intersects(explosion_bounds):
 		Global.player.take_damage(1)
 		player_damaged_for_current_explosion = true
+
+	#----------- Enemy damage -------------------------------
+	for enemy in spawned_enemies.get_children():
+		var enemy_bounds = Rect2(enemy.global_position - Vector2(16, 16), Vector2(25.6, 25.6)) 
+		if enemy_bounds.intersects(explosion_bounds):
+			enemy.take_damage()
+
