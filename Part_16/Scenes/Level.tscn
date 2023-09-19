@@ -1,0 +1,820 @@
+[gd_scene load_steps=17 format=3 uid="uid://wbpsudjihrlj"]
+
+[ext_resource type="Script" path="res://Scripts/Level.gd" id="1_q7ly6"]
+[ext_resource type="TileSet" uid="uid://dx4yvmctebweo" path="res://Resources/Level_TileSet.tres" id="2_fgfue"]
+[ext_resource type="Script" path="res://Scripts/UITime.gd" id="3_wmokq"]
+[ext_resource type="FontFile" uid="uid://lxeddhw7kru1" path="res://Assets/fonts/ARCADECLASSIC.TTF" id="3_x3o3b"]
+[ext_resource type="Texture2D" uid="uid://gwev6y65imcw" path="res://Assets/pickups/power_up.png" id="4_oxj1y"]
+[ext_resource type="FontFile" uid="uid://ds7hjvwew2ekh" path="res://Assets/fonts/Covenant5x5.ttf" id="5_orb0h"]
+[ext_resource type="Script" path="res://Scripts/UILives.gd" id="5_rek8i"]
+[ext_resource type="StyleBox" uid="uid://dtq4okljr17b3" path="res://Themes/Normal_Button_Style.tres" id="6_7l0rl"]
+[ext_resource type="Script" path="res://Scripts/UIEnemies.gd" id="6_o0dxq"]
+[ext_resource type="StyleBox" uid="uid://bbpuoiodrcb1h" path="res://Themes/Hover_Button_Style.tres" id="7_0734d"]
+[ext_resource type="Script" path="res://Scripts/UIPlayers.gd" id="7_ukuug"]
+[ext_resource type="Texture2D" uid="uid://de2pniapfsnpe" path="res://Assets/ui_items/info_icon.png" id="8_30bld"]
+[ext_resource type="Script" path="res://Scripts/UIBoosts.gd" id="8_wuhdv"]
+[ext_resource type="Texture2D" uid="uid://cv0td6nc4w44k" path="res://Assets/ui_items/game_info.png" id="9_tyfwu"]
+[ext_resource type="FontFile" uid="uid://digbq0mlkbh3p" path="res://Assets/fonts/Schrödinger.ttf" id="10_6nh0t"]
+[ext_resource type="FontFile" uid="uid://v660se06ixrr" path="res://Assets/fonts/Stacked pixel.ttf" id="11_qqyhm"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_q7ly6")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_fgfue")
+format = 2
+layer_0/name = "BACKGROUND_TILE"
+layer_1/name = "BREAKABLE_TILE"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "UNBREAKABLE_TILE"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 2
+layer_2/tile_data = PackedInt32Array()
+
+[node name="SpawnedBombs" type="Node2D" parent="."]
+
+[node name="SpawnedBoosts" type="Node2D" parent="."]
+
+[node name="SpawnedEnemies" type="Node2D" parent="."]
+z_index = 1
+
+[node name="SpawnedPlayers" type="Node2D" parent="."]
+z_index = 1
+
+[node name="CountDownTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="Border" type="ColorRect" parent="GameUI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+color = Color(0.423529, 0.423529, 0.423529, 1)
+
+[node name="Container" type="ColorRect" parent="GameUI/Border"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -570.0
+offset_top = -45.0
+offset_right = 570.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.737255, 0.737255, 0.737255, 1)
+
+[node name="Time" type="ColorRect" parent="GameUI/Border/Container"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 210.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("3_wmokq")
+
+[node name="Label" type="Label" parent="GameUI/Border/Container/Time"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.109804, 0.109804, 0.109804, 1)
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "TIME:"
+vertical_alignment = 1
+
+[node name="Container" type="ColorRect" parent="GameUI/Border/Container/Time"]
+layout_mode = 0
+offset_left = 90.0
+offset_right = 190.0
+offset_bottom = 50.0
+
+[node name="Border" type="ColorRect" parent="GameUI/Border/Container/Time/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -24.0
+offset_right = 49.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[node name="Value" type="Label" parent="GameUI/Border/Container/Time/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lives" type="ColorRect" parent="GameUI/Border/Container"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 20.0
+offset_right = 440.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("5_rek8i")
+
+[node name="Label" type="Label" parent="GameUI/Border/Container/Lives"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.109804, 0.109804, 0.109804, 1)
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "LIVES:"
+vertical_alignment = 1
+
+[node name="Container" type="ColorRect" parent="GameUI/Border/Container/Lives"]
+layout_mode = 0
+offset_left = 110.0
+offset_right = 210.0
+offset_bottom = 50.0
+
+[node name="Border" type="ColorRect" parent="GameUI/Border/Container/Lives/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -24.0
+offset_right = 49.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[node name="Value" type="Label" parent="GameUI/Border/Container/Lives/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Enemies" type="ColorRect" parent="GameUI/Border/Container"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 20.0
+offset_right = 720.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("6_o0dxq")
+
+[node name="Label" type="Label" parent="GameUI/Border/Container/Enemies"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.109804, 0.109804, 0.109804, 1)
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "ENEMIES:"
+vertical_alignment = 1
+
+[node name="Container" type="ColorRect" parent="GameUI/Border/Container/Enemies"]
+layout_mode = 0
+offset_left = 150.0
+offset_right = 250.0
+offset_bottom = 50.0
+
+[node name="Border" type="ColorRect" parent="GameUI/Border/Container/Enemies/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -24.0
+offset_right = 49.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[node name="Value" type="Label" parent="GameUI/Border/Container/Enemies/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Players" type="ColorRect" parent="GameUI/Border/Container"]
+layout_mode = 0
+offset_left = 730.0
+offset_top = 20.0
+offset_right = 990.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("7_ukuug")
+
+[node name="Label" type="Label" parent="GameUI/Border/Container/Players"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.109804, 0.109804, 0.109804, 1)
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "PLAYERS:"
+vertical_alignment = 1
+
+[node name="Container" type="ColorRect" parent="GameUI/Border/Container/Players"]
+layout_mode = 0
+offset_left = 150.0
+offset_right = 250.0
+offset_bottom = 50.0
+
+[node name="Border" type="ColorRect" parent="GameUI/Border/Container/Players/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -24.0
+offset_right = 49.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[node name="Value" type="Label" parent="GameUI/Border/Container/Players/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Boosts" type="ColorRect" parent="GameUI/Border/Container"]
+layout_mode = 0
+offset_left = 1005.0
+offset_top = 20.0
+offset_right = 1115.0
+offset_bottom = 70.0
+color = Color(1, 1, 1, 0)
+script = ExtResource("8_wuhdv")
+
+[node name="Container" type="ColorRect" parent="GameUI/Border/Container/Boosts"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.815686, 0.12549, 0.219608, 1)
+
+[node name="Border" type="ColorRect" parent="GameUI/Border/Container/Boosts/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -23.0
+offset_right = 53.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.972549, 0.419608, 0.25098, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="GameUI/Border/Container/Boosts/Container/Border"]
+position = Vector2(20, 24)
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("4_oxj1y")
+hframes = 3
+
+[node name="Value" type="Label" parent="GameUI/Border/Container/Boosts/Container"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -20.0
+offset_right = -13.0
+offset_bottom = 19.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_x3o3b")
+theme_override_font_sizes/font_size = 35
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Separator" type="ColorRect" parent="GameUI/Border"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -577.0
+offset_right = 576.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.972549, 0.690196, 0.25098, 0.47451)
+
+[node name="PauseMenuUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="StartScreen" type="ColorRect" parent="PauseMenuUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ResumeGameButton" type="Button" parent="PauseMenuUI/StartScreen"]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 50.0
+offset_right = 875.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("6_7l0rl")
+theme_override_styles/hover = ExtResource("7_0734d")
+text = "RESUME"
+metadata/_edit_use_anchors_ = true
+
+[node name="SaveGameButton" type="Button" parent="PauseMenuUI/StartScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00260417
+anchor_top = -0.171296
+anchor_right = -0.00260417
+anchor_bottom = -0.171296
+offset_left = 278.0
+offset_top = 291.0
+offset_right = 878.0
+offset_bottom = 391.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("6_7l0rl")
+theme_override_styles/hover = ExtResource("7_0734d")
+text = "SAVE LEVEL"
+metadata/_edit_use_anchors_ = true
+
+[node name="RestartGameButton" type="Button" parent="PauseMenuUI/StartScreen"]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 310.0
+offset_right = 875.0
+offset_bottom = 410.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("6_7l0rl")
+theme_override_styles/hover = ExtResource("7_0734d")
+text = "RESTART LEVEL"
+metadata/_edit_use_anchors_ = true
+
+[node name="QuitGameButton" type="Button" parent="PauseMenuUI/StartScreen"]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 440.0
+offset_right = 875.0
+offset_bottom = 540.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("6_7l0rl")
+theme_override_styles/hover = ExtResource("7_0734d")
+text = "QUIT TO MENU"
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelInfo" type="ColorRect" parent="PauseMenuUI/StartScreen"]
+layout_mode = 1
+offset_left = 275.0
+offset_top = 570.0
+offset_right = 875.0
+offset_bottom = 620.0
+color = Color(0.917647, 0.713726, 0.415686, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="PauseMenuUI/StartScreen/LevelInfo"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.5
+offset_top = -14.5
+offset_right = 153.5
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 25
+text = "CURRENT LEVEL:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameInfoButton" type="Button" parent="PauseMenuUI/StartScreen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = -123.0
+offset_right = 386.0
+offset_bottom = 385.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("8_30bld")
+metadata/_edit_use_anchors_ = true
+
+[node name="GameInfoScreen" type="ColorRect" parent="PauseMenuUI/StartScreen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PauseMenuUI/StartScreen/GameInfoScreen"]
+texture = ExtResource("9_tyfwu")
+
+[node name="CloseButton" type="Button" parent="PauseMenuUI/StartScreen/GameInfoScreen"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 469.0
+offset_top = -299.0
+offset_right = 549.0
+offset_bottom = -219.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 50
+text = "x"
+
+[node name="LevelCompleteUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="StartScreen" type="ColorRect" parent="LevelCompleteUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="GameTitle" type="ColorRect" parent="LevelCompleteUI/StartScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 20.0
+offset_right = 350.0
+offset_bottom = 220.0
+grow_horizontal = 2
+color = Color(0.972549, 0.690196, 0.25098, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="ColorRect" parent="LevelCompleteUI/StartScreen/GameTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.0
+offset_top = -95.0
+offset_right = 345.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.815686, 0.12549, 0.219608, 1)
+
+[node name="Label" type="Label" parent="LevelCompleteUI/StartScreen/GameTitle/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_shadow_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("11_qqyhm")
+theme_override_font_sizes/font_size = 100
+text = "Success!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="ColorRect" parent="LevelCompleteUI/StartScreen"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 300.0
+offset_right = 770.0
+offset_bottom = 360.0
+color = Color(1, 1, 1, 0)
+
+[node name="Label" type="Label" parent="LevelCompleteUI/StartScreen/Level"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.5
+offset_right = 204.0
+offset_bottom = 21.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "Level:"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="LevelCompleteUI/StartScreen/Level"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="ColorRect" parent="LevelCompleteUI/StartScreen"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 380.0
+offset_right = 770.0
+offset_bottom = 440.0
+color = Color(1, 1, 1, 0)
+
+[node name="Label" type="Label" parent="LevelCompleteUI/StartScreen/Time"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.5
+offset_right = 204.0
+offset_bottom = 21.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "Final Time:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="LevelCompleteUI/StartScreen/Time"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="LevelCompleteUI/StartScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 500.0
+offset_right = 820.0
+offset_bottom = 590.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("6_7l0rl")
+theme_override_styles/hover = ExtResource("7_0734d")
+text = "CONTINUE"
+metadata/_edit_use_anchors_ = true
+
+[node name="GameOverUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="StartScreen" type="ColorRect" parent="GameOverUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="GameTitle" type="ColorRect" parent="GameOverUI/StartScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 20.0
+offset_right = 350.0
+offset_bottom = 220.0
+grow_horizontal = 2
+color = Color(0.972549, 0.690196, 0.25098, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="ColorRect" parent="GameOverUI/StartScreen/GameTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.0
+offset_top = -95.0
+offset_right = 345.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.815686, 0.12549, 0.219608, 1)
+
+[node name="Label" type="Label" parent="GameOverUI/StartScreen/GameTitle/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_shadow_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("11_qqyhm")
+theme_override_font_sizes/font_size = 100
+text = "GAME OVER!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="ColorRect" parent="GameOverUI/StartScreen"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 300.0
+offset_right = 770.0
+offset_bottom = 360.0
+color = Color(1, 1, 1, 0)
+
+[node name="Label" type="Label" parent="GameOverUI/StartScreen/Level"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.5
+offset_right = 204.0
+offset_bottom = 21.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "Level:"
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="GameOverUI/StartScreen/Level"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="ColorRect" parent="GameOverUI/StartScreen"]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 380.0
+offset_right = 770.0
+offset_bottom = 440.0
+color = Color(1, 1, 1, 0)
+
+[node name="Label" type="Label" parent="GameOverUI/StartScreen/Time"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -21.5
+offset_right = 204.0
+offset_bottom = 21.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "Final Time:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="GameOverUI/StartScreen/Time"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_6nh0t")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="GameOverUI/StartScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 500.0
+offset_right = 820.0
+offset_bottom = 590.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("5_orb0h")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("6_7l0rl")
+theme_override_styles/hover = ExtResource("7_0734d")
+text = "RESTART"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="CountDownTimer" to="." method="_on_count_down_timer_timeout"]

@@ -1,0 +1,370 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkkhgoun5huyt"]
+
+[ext_resource type="FontFile" uid="uid://v660se06ixrr" path="res://Assets/fonts/Stacked pixel.ttf" id="1_jjaib"]
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_t3xtd"]
+[ext_resource type="FontFile" uid="uid://ds7hjvwew2ekh" path="res://Assets/fonts/Covenant5x5.ttf" id="2_01dll"]
+[ext_resource type="StyleBox" uid="uid://dtq4okljr17b3" path="res://Themes/Normal_Button_Style.tres" id="3_g21iq"]
+[ext_resource type="StyleBox" uid="uid://bbpuoiodrcb1h" path="res://Themes/Hover_Button_Style.tres" id="4_34dab"]
+[ext_resource type="Texture2D" uid="uid://de2pniapfsnpe" path="res://Assets/ui_items/info_icon.png" id="5_b2lmn"]
+[ext_resource type="Texture2D" uid="uid://cv0td6nc4w44k" path="res://Assets/ui_items/game_info.png" id="6_ia8fw"]
+[ext_resource type="FontFile" uid="uid://digbq0mlkbh3p" path="res://Assets/fonts/Schrödinger.ttf" id="7_rq4as"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_t3xtd")
+
+[node name="GamePanel" type="CanvasLayer" parent="."]
+
+[node name="StartScreen" type="ColorRect" parent="GamePanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="GameTitle" type="ColorRect" parent="GamePanel/StartScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 20.0
+offset_right = 350.0
+offset_bottom = 220.0
+grow_horizontal = 2
+color = Color(0.972549, 0.690196, 0.25098, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="ColorRect" parent="GamePanel/StartScreen/GameTitle"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.0
+offset_top = -95.0
+offset_right = 345.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.815686, 0.12549, 0.219608, 1)
+
+[node name="Label" type="Label" parent="GamePanel/StartScreen/GameTitle/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_shadow_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("1_jjaib")
+theme_override_font_sizes/font_size = 100
+text = "BOMBER
+CLONE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NewGameButton" type="Button" parent="GamePanel/StartScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 250.0
+offset_right = 820.0
+offset_bottom = 340.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("3_g21iq")
+theme_override_styles/hover = ExtResource("4_34dab")
+text = "NEW GAME"
+metadata/_edit_use_anchors_ = true
+
+[node name="LoadGameButton" type="Button" parent="GamePanel/StartScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 360.0
+offset_right = 820.0
+offset_bottom = 450.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("3_g21iq")
+theme_override_styles/hover = ExtResource("4_34dab")
+text = "LOAD GAME"
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitGameButton" type="Button" parent="GamePanel/StartScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 470.0
+offset_right = 820.0
+offset_bottom = 560.0
+theme_override_colors/font_color = Color(0.972549, 0.690196, 0.25098, 1)
+theme_override_colors/font_hover_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = ExtResource("3_g21iq")
+theme_override_styles/hover = ExtResource("4_34dab")
+text = "EXIT"
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelInfo" type="ColorRect" parent="GamePanel/StartScreen"]
+layout_mode = 1
+offset_left = 320.0
+offset_top = 580.0
+offset_right = 820.0
+offset_bottom = 620.0
+color = Color(0.917647, 0.713726, 0.415686, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="GamePanel/StartScreen/LevelInfo"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -153.5
+offset_top = -14.5
+offset_right = 153.5
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 25
+text = "LAST SAVED LEVEL:"
+
+[node name="GameInfoButton" type="Button" parent="GamePanel/StartScreen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = -123.0
+offset_right = 386.0
+offset_bottom = 385.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.2, 0.2)
+icon = ExtResource("5_b2lmn")
+metadata/_edit_use_anchors_ = true
+
+[node name="GameInfoScreen" type="ColorRect" parent="GamePanel/StartScreen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GamePanel/StartScreen/GameInfoScreen"]
+texture = ExtResource("6_ia8fw")
+
+[node name="CloseButton" type="Button" parent="GamePanel/StartScreen/GameInfoScreen"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 469.0
+offset_top = -299.0
+offset_right = 549.0
+offset_bottom = -219.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("7_rq4as")
+theme_override_font_sizes/font_size = 50
+text = "x"
+
+[node name="GameModePopup" type="Popup" parent="GamePanel/StartScreen"]
+size = Vector2i(1152, 648)
+
+[node name="Border" type="ColorRect" parent="GamePanel/StartScreen/GameModePopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.972549, 0.690196, 0.25098, 1)
+
+[node name="Container" type="ColorRect" parent="GamePanel/StartScreen/GameModePopup/Border"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -571.0
+offset_top = -319.0
+offset_right = 571.0
+offset_bottom = 319.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+
+[node name="Label" type="Label" parent="GamePanel/StartScreen/GameModePopup/Border/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -129.0
+offset_right = 216.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_rq4as")
+theme_override_font_sizes/font_size = 40
+text = "Choose a Game Mode:"
+uppercase = true
+
+[node name="NormalModeButton" type="Button" parent="GamePanel/StartScreen/GameModePopup/Border/Container"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 269.0
+offset_right = 762.0
+offset_bottom = 369.0
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_g21iq")
+theme_override_styles/hover = ExtResource("4_34dab")
+text = "NORMAL"
+
+[node name="BattleModeButton" type="Button" parent="GamePanel/StartScreen/GameModePopup/Border/Container"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 400.0
+offset_right = 762.0
+offset_bottom = 500.0
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_g21iq")
+theme_override_styles/hover = ExtResource("4_34dab")
+text = "BATTLE"
+
+[node name="CloseButton" type="Button" parent="GamePanel/StartScreen/GameModePopup/Border/Container"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("7_rq4as")
+theme_override_font_sizes/font_size = 50
+text = "x"
+
+[node name="AISelectionPopup" type="Popup" parent="GamePanel/StartScreen"]
+size = Vector2i(1152, 648)
+
+[node name="Border" type="ColorRect" parent="GamePanel/StartScreen/AISelectionPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.972549, 0.690196, 0.25098, 1)
+
+[node name="Container" type="ColorRect" parent="GamePanel/StartScreen/AISelectionPopup/Border"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -571.0
+offset_top = -319.0
+offset_right = 571.0
+offset_bottom = 319.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+
+[node name="AILabel" type="Label" parent="GamePanel/StartScreen/AISelectionPopup/Border/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -209.0
+offset_top = -129.0
+offset_right = 223.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_rq4as")
+theme_override_font_sizes/font_size = 35
+text = "Number of AI Players:"
+uppercase = true
+
+[node name="AIAmountTextEdit" type="TextEdit" parent="GamePanel/StartScreen/AISelectionPopup/Border/Container"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 250.0
+offset_right = 762.0
+offset_bottom = 330.0
+placeholder_text = "1 - 3"
+
+[node name="ErrorLabel" type="Label" parent="GamePanel/StartScreen/AISelectionPopup/Border/Container"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = -43.0
+offset_right = 216.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.423529, 0.423529, 0.423529, 1)
+theme_override_fonts/font = ExtResource("7_rq4as")
+theme_override_font_sizes/font_size = 25
+text = "* Please select between 1-3 AI Players."
+
+[node name="StartButton" type="Button" parent="GamePanel/StartScreen/AISelectionPopup/Border/Container"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 430.0
+offset_right = 762.0
+offset_bottom = 530.0
+theme_override_fonts/font = ExtResource("2_01dll")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_g21iq")
+theme_override_styles/hover = ExtResource("4_34dab")
+text = "START GAME"
+
+[node name="CloseButton" type="Button" parent="GamePanel/StartScreen/AISelectionPopup/Border/Container"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("7_rq4as")
+theme_override_font_sizes/font_size = 50
+text = "x"
+
+[connection signal="pressed" from="GamePanel/StartScreen/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/LoadGameButton" to="." method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/ExitGameButton" to="." method="_on_exit_game_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/GameModePopup/Border/Container/NormalModeButton" to="." method="_on_normal_mode_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/GameModePopup/Border/Container/BattleModeButton" to="." method="_on_battle_mode_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/GameModePopup/Border/Container/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/AISelectionPopup/Border/Container/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="GamePanel/StartScreen/AISelectionPopup/Border/Container/CloseButton" to="." method="_on_close_button_pressed"]
