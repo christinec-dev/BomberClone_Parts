@@ -1,6 +1,9 @@
 # BomberClone Parts
 This is the sectional code my Procedurally Generated 2D game tutorial series, BomberClone. This tutorial series aims to teach you how to make a Procedurally Generated game from start to finish, and ultimately show you all the things that you need to know as a beginner to intermediate Godot developer!
 
+![Screenshot 2023-09-19 142614](https://github.com/christinec-dev/BomberClone_Parts/assets/87696858/4d573a1c-0df9-42b0-9bce-66527f9e7616)
+![Screenshot 2023-09-26 133910](https://github.com/christinec-dev/BomberClone_Parts/assets/87696858/c879ec4a-041a-4876-8ec8-86be8c0ced25)
+
 ## Project Updates
 You can see the latest updates for this game here: https://oops-i-devd.gitbook.io/christinedevs/
 
@@ -24,7 +27,7 @@ This game is a Procedurally Generated game that includes the following:
 - Music, SFX, & Custom Cursor
 - Testing & Exporting
 
-- ## Asset File Download
+## Asset File Download
 All assets can be downloaded from my Google Drive: https://drive.google.com/drive/folders/1AvE7enUr4H_dLOh8N8OTvgH80DaN_o7Z?usp=sharing
 
 ## Asset Credits
