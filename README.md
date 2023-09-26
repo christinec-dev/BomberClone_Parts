@@ -20,6 +20,7 @@ This game is a Procedurally Generated game that includes the following:
 - Explosion System
 - Enemies
 - AI Co-Players
+- A* Algorithms, Pathfinding, & Navigation
 - Game UI
 - Game Mode & Stats (Normal & Multiplayer Mode)
 - Level Progression & Game Over
