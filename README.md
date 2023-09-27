@@ -7,11 +7,14 @@ This is the sectional code my Procedurally Generated 2D game tutorial series, Bo
 ## Project Updates
 You can see the latest updates for this game here: https://oops-i-devd.gitbook.io/christinedevs/
 
+## Project Demo
+You can play the demo end-product of our project here: https://gotm.io/oopsidevd/bomberclone
+
 ## Project Tutorial
 You can find the tutorial series here: https://ko-fi.com/s/fa00d21069
 
 ## Project Preview Video
-You can watch the preview video that showcases our game here: 
+You can watch the preview video that showcases our game here: https://youtu.be/nEzJRupuDSU
 
 ## Project Overview
 This game is a Procedurally Generated game that includes the following:
