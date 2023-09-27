@@ -1,8 +1,9 @@
 # BomberClone Parts
 This is the sectional code my Procedurally Generated 2D game tutorial series, BomberClone. This tutorial series aims to teach you how to make a Procedurally Generated game from start to finish, and ultimately show you all the things that you need to know as a beginner to intermediate Godot developer!
 
-![Screenshot 2023-09-19 142614](https://github.com/christinec-dev/BomberClone_Parts/assets/87696858/4d573a1c-0df9-42b0-9bce-66527f9e7616)
-![Screenshot 2023-09-26 133910](https://github.com/christinec-dev/BomberClone_Parts/assets/87696858/c879ec4a-041a-4876-8ec8-86be8c0ced25)
+![Screenshot 2023-09-19 142614](https://github.com/christinec-dev/BomberClone_Parts/assets/87696858/d09649b7-137f-4cee-8e40-9b13b34ccf29)
+
+![Screenshot 2023-09-19 165158](https://github.com/christinec-dev/BomberClone_Parts/assets/87696858/fef4bc7a-b92e-4e0f-be32-b362e7872dec)
 
 ## Project Updates
 You can see the latest updates for this game here: https://oops-i-devd.gitbook.io/christinedevs/
